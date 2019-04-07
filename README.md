@@ -58,6 +58,54 @@ Please do the following sequentially:
     8. Click Run
 
 
+
+### How do I install and run it for the first time in production? (w/ Docker and Docker Compose) ###
+Please do the following sequentially:
+
+    1. Installing Docker and Docker Compose
+        1.1. Go to this link: https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/#os-requirements
+        1.2. sudo apt-get install docker-compose
+        
+    2. Clone keyvalueapi in your local machine
+    * Clone keyvalueapi using your terminal `https://github.com/kristhiantiu/restapi-keyvalue.git`
+        ```bash
+        git clone https://github.com/kristhiantiu/restapi-keyvalue.git
+        ```
+
+    3. build [Create Custom Image] api, and mongoddb:
+        * biobankapi2
+            ```bash
+            cd keyvalueapi
+            docker-compose build
+            ```
+
+    4. Build and run mongodb:
+        * mongodb
+            ```bash
+            cd keyvalueapi
+            docker-compose up -d keyvalueapidb
+            # check logs
+            docker-compose logs keyvalueapidb
+            ```
+
+    5. Run api
+        * auth api
+            ```bash
+            cd keyvalueapi
+            docker-compose up -d keyvalueapi
+            # check logs
+            docker-compose logs keyvalueapi
+            ```
+
+### How to stop ALL service in production? ###
+Please do the following:
+
+    1. go to keyvalueapi
+        ```
+        cd keyvalueapi
+        docker-compose stop 
+        ```
+
 ### Contribution guidelines ###
 
 * No direct push to major branches (master, develop) - all merge to master must pass through a pull request
