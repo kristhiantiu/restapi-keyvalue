@@ -82,7 +82,7 @@ router.get('/:mykey', (req, res) => {
 
   ObjectModel.aggregate(pipeline).exec((err, result) => {
     if(err) {
-      return res.status(500).send('Not yet implemented');
+      return res.status(500).send('Something went wrong. Please contact administrator.');
     }
     if(result.length > 0) {
       return res.status(200).send({
