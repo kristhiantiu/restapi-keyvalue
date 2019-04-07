@@ -20,8 +20,8 @@
           }
         ],
         "responses": {
-          "201": {
-            "description": "Object successfully created.",
+          "200": {
+            "description": "Object updated/created.",
             "schema": {
               "$ref": "#/definitions/Object"
             }

@@ -16,7 +16,18 @@
 							"script": {
 								"id": "01067e84-09ab-46b6-980c-aecb90b62109",
 								"exec": [
-									"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });"
+									"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e64020b9-477d-4ac1-a702-014759616c6a",
+								"exec": [
+									"pm.globals.set(\"TESTSTARTTIME\", new Date().getTime());"
 								],
 								"type": "text/javascript"
 							}
@@ -48,6 +59,57 @@
 			"name": "CREATING OBJECTS",
 			"item": [
 				{
+					"name": "PREVENT CREATE OBJECT MULTIPLE",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "da78678e-c8c7-4056-8515-477ab6f96722",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () { pm.response.to.have.status(400); });"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "80701c3e-81d2-4734-9f60-f998929093b7",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"SOMEOBJ1\": \"SUCCESS_IS_RESPECT\",\r\n  \"SOMEOBJ2\": \"SUCCESS_IS_RESPECT\"\r\n}"
+						},
+						"url": {
+							"raw": "http://{{keyvalueapi_hostname}}/object",
+							"protocol": "http",
+							"host": [
+								"{{keyvalueapi_hostname}}"
+							],
+							"path": [
+								"object"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "CREATE OBJECT",
 					"event": [
 						{
@@ -55,9 +117,17 @@
 							"script": {
 								"id": "da78678e-c8c7-4056-8515-477ab6f96722",
 								"exec": [
-									"pm.test(\"Status code is 201\", function () { pm.response.to.have.status(201); });",
+									"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+									"",
 									"const response = pm.response.json();",
-									"pm.globals.set(\"CREATEDOBJECTTIMESTAMP\", response.timestamp);"
+									"pm.test(\"Created object is correct\", function () {",
+									"    pm.expect(response.key).to.eql(pm.globals.get(\"CREATEDOBJECTKEY\"));",
+									"    pm.expect(response.value).to.eql(pm.globals.get(\"CREATEDOBJECTVAL\"));",
+									"    pm.expect(response).to.have.property('timestamp');",
+									"});",
+									"",
+									"pm.globals.set(\"CREATEDOBJECTTIMESTAMP\", response.timestamp);",
+									"pm.globals.set(\"JUSTAFTER1STCREATETIMESTAMP\",  new Date().getTime());"
 								],
 								"type": "text/javascript"
 							}
@@ -69,7 +139,10 @@
 								"exec": [
 									"const testrandomnumber = Math.floor((Math.random() * 10000) + 1);",
 									"pm.globals.set(\"CREATEDOBJECTKEY\", \"SECRET\" + testrandomnumber);",
-									"console.log(testrandomnumber);"
+									"pm.globals.set(\"CREATEDOBJECTVAL\", \"SUCCESS_IS_RESPECT\");",
+									"",
+									"console.log(testrandomnumber);",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -103,20 +176,23 @@
 					"response": []
 				},
 				{
-					"name": "UPDATE OBJECT",
+					"name": "UPDATE OBJECT LATER",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"id": "da78678e-c8c7-4056-8515-477ab6f96722",
 								"exec": [
+									"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+									"",
 									"const response = pm.response.json();",
-									"pm.globals.set(\"CREATEDOBJECTLATER\", response.value);",
 									"pm.test(\"Updated value\", function () {",
-									"    pm.expect(response.value).to.eql(\"{{CREATEDOBJECTLATERVALUE}}\");",
+									"    pm.expect(response.key).to.eql(pm.globals.get(\"CREATEDOBJECTKEY\"));",
+									"    pm.expect(response.value).to.eql(pm.globals.get(\"CREATEDOBJECTLATERVALUE\"));",
+									"    pm.expect(response).to.have.property('timestamp');",
 									"});",
 									"pm.globals.set(\"CREATEDOBJECTTIMESTAMPLATER\", response.timestamp);",
-									"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });"
+									"pm.globals.set(\"TESTLATERTIME\", new Date().getTime());"
 								],
 								"type": "text/javascript"
 							}
@@ -126,7 +202,7 @@
 							"script": {
 								"id": "a8e6317e-d100-48e9-9533-a59083a92c68",
 								"exec": [
-									"pm.globals.set(\"CREATEDOBJECTLATERVALUE\", \"SOME OTHER VALUE\");"
+									"pm.globals.set(\"CREATEDOBJECTLATERVALUE\", \"SUCCESS_IS_PEACE_OF_MIND\");"
 								],
 								"type": "text/javascript"
 							}
@@ -163,6 +239,71 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "UPDATE OBJECT LATEST",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "da78678e-c8c7-4056-8515-477ab6f96722",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+									"",
+									"const response = pm.response.json();",
+									"pm.test(\"Updated value\", function () {",
+									"    pm.expect(response.key).to.eql(pm.globals.get(\"CREATEDOBJECTKEY\"));",
+									"    pm.expect(response.value).to.eql(pm.globals.get(\"CREATEDOBJECTLATESTVALUE\"));",
+									"    pm.expect(response).to.have.property('timestamp');",
+									"});",
+									"pm.globals.set(\"CREATEDOBJECTTIMESTAMPLATEST\", response.timestamp);",
+									"pm.globals.set(\"TESTLATESTTIME\", new Date().getTime());"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "a8e6317e-d100-48e9-9533-a59083a92c68",
+								"exec": [
+									"pm.globals.set(\"CREATEDOBJECTLATESTVALUE\", \"SUCCESS_IS_HEAVEN\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "JWT {{organization_login}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"{{CREATEDOBJECTKEY}}\": \"{{CREATEDOBJECTLATESTVALUE}}\"\r\n}"
+						},
+						"url": {
+							"raw": "http://{{keyvalueapi_hostname}}/object",
+							"protocol": "http",
+							"host": [
+								"{{keyvalueapi_hostname}}"
+							],
+							"path": [
+								"object"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -170,14 +311,20 @@
 			"name": "GETTING OBJECTS",
 			"item": [
 				{
-					"name": "READ OBJECT",
+					"name": "READ LATEST OBJECT",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"id": "e0c615ac-4c37-4ba8-8646-26422bd754da",
 								"exec": [
-									"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });"
+									"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+									"",
+									"pm.test(\"Query gets the latest object\", function () {",
+									"    const response = pm.response.json();",
+									"    pm.expect(response.value).to.eql(pm.globals.get(\"CREATEDOBJECTLATESTVALUE\"));",
+									"});",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -214,14 +361,20 @@
 					"response": []
 				},
 				{
-					"name": "READ EARLIER OBJECT",
+					"name": "READ EARLIER OBJECT using EXACT TIME",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"id": "e0c615ac-4c37-4ba8-8646-26422bd754da",
 								"exec": [
-									"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });"
+									"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+									"",
+									"pm.test(\"Query gets the nearest object to timestamp \", function () {",
+									"    const response = pm.response.json();",
+									"    pm.expect(response.value).to.eql(pm.globals.get(\"CREATEDOBJECTVAL\"));",
+									"});",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -251,6 +404,306 @@
 								{
 									"key": "timestamp",
 									"value": "{{CREATEDOBJECTTIMESTAMP}}"
+								}
+							],
+							"variable": [
+								{
+									"key": "mykey",
+									"value": "{{CREATEDOBJECTKEY}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "READ EARLIER OBJECT using INEXACT TIME",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e0c615ac-4c37-4ba8-8646-26422bd754da",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+									"",
+									"pm.test(\"Query gets the nearest object to timestamp \", function () {",
+									"    const response = pm.response.json();",
+									"    pm.expect(response.value).to.eql(pm.globals.get(\"CREATEDOBJECTVAL\"));",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{keyvalueapi_hostname}}/object/:mykey?timestamp={{TESTSTARTTIME}}",
+							"protocol": "http",
+							"host": [
+								"{{keyvalueapi_hostname}}"
+							],
+							"path": [
+								"object",
+								":mykey"
+							],
+							"query": [
+								{
+									"key": "timestamp",
+									"value": "{{TESTSTARTTIME}}"
+								}
+							],
+							"variable": [
+								{
+									"key": "mykey",
+									"value": "{{CREATEDOBJECTKEY}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "READ EARLIER OBJECT using INEXACT TIME JUSTAFTER",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e0c615ac-4c37-4ba8-8646-26422bd754da",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+									"",
+									"pm.test(\"Query gets the nearest object to timestamp \", function () {",
+									"    const response = pm.response.json();",
+									"    pm.expect(response.value).to.eql(pm.globals.get(\"CREATEDOBJECTVAL\"));",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{keyvalueapi_hostname}}/object/:mykey?timestamp={{JUSTAFTER1STCREATETIMESTAMP}}",
+							"protocol": "http",
+							"host": [
+								"{{keyvalueapi_hostname}}"
+							],
+							"path": [
+								"object",
+								":mykey"
+							],
+							"query": [
+								{
+									"key": "timestamp",
+									"value": "{{JUSTAFTER1STCREATETIMESTAMP}}"
+								}
+							],
+							"variable": [
+								{
+									"key": "mykey",
+									"value": "{{CREATEDOBJECTKEY}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "READ LATER OBJECT using EXACT TIME",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e0c615ac-4c37-4ba8-8646-26422bd754da",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+									"",
+									"pm.test(\"Query gets the nearest object to timestamp \", function () {",
+									"    const response = pm.response.json();",
+									"    pm.expect(response.value).to.eql(pm.globals.get(\"CREATEDOBJECTLATERVALUE\"));",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{keyvalueapi_hostname}}/object/:mykey?timestamp={{CREATEDOBJECTTIMESTAMPLATER}}",
+							"protocol": "http",
+							"host": [
+								"{{keyvalueapi_hostname}}"
+							],
+							"path": [
+								"object",
+								":mykey"
+							],
+							"query": [
+								{
+									"key": "timestamp",
+									"value": "{{CREATEDOBJECTTIMESTAMPLATER}}"
+								}
+							],
+							"variable": [
+								{
+									"key": "mykey",
+									"value": "{{CREATEDOBJECTKEY}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "READ LATER OBJECT using INEXACT TIME",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e0c615ac-4c37-4ba8-8646-26422bd754da",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+									"",
+									"pm.test(\"Query gets the nearest object to timestamp \", function () {",
+									"    const response = pm.response.json();",
+									"    pm.expect(response.value).to.eql(pm.globals.get(\"CREATEDOBJECTLATERVALUE\"));",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "76766ec7-db78-49e3-a03b-433670d34aa5",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{keyvalueapi_hostname}}/object/:mykey?timestamp={{TESTLATERTIME}}",
+							"protocol": "http",
+							"host": [
+								"{{keyvalueapi_hostname}}"
+							],
+							"path": [
+								"object",
+								":mykey"
+							],
+							"query": [
+								{
+									"key": "timestamp",
+									"value": "{{TESTLATERTIME}}"
+								}
+							],
+							"variable": [
+								{
+									"key": "mykey",
+									"value": "{{CREATEDOBJECTKEY}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "READ LATEST OBJECT using INEXACT TIME",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e0c615ac-4c37-4ba8-8646-26422bd754da",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+									"",
+									"pm.test(\"Query gets the nearest object to timestamp \", function () {",
+									"    const response = pm.response.json();",
+									"    pm.expect(response.value).to.eql(pm.globals.get(\"CREATEDOBJECTLATESTVALUE\"));",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "76766ec7-db78-49e3-a03b-433670d34aa5",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{keyvalueapi_hostname}}/object/:mykey?timestamp={{TESTLATESTTIME}}",
+							"protocol": "http",
+							"host": [
+								"{{keyvalueapi_hostname}}"
+							],
+							"path": [
+								"object",
+								":mykey"
+							],
+							"query": [
+								{
+									"key": "timestamp",
+									"value": "{{TESTLATESTTIME}}"
 								}
 							],
 							"variable": [
