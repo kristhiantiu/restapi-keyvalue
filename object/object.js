@@ -36,7 +36,6 @@ router.post('/', (req, res) => {
     value: req.body[key],
     timestamp: new Date().getTime()
   }).save().then((saved_object) => {
-    console.log(saved_object);
     return res.status(200).send(saved_object);
   }).catch((error) => {
     if (error instanceof ObjectError) {
