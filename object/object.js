@@ -68,7 +68,7 @@ router.get('/:mykey', (req, res) => {
       $project : { key: 1, value: 1,
         difference : {
           $abs : {
-            $subtract : [, "$timestamp"]
+            $subtract : [wanted_tstamp_nmber, "$timestamp"]
           }
         }
       }
