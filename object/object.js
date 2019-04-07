@@ -48,8 +48,51 @@ router.post('/', (req, res) => {
   });
 });
 
-router.get('/:id', (req, res) => {
-  res.status(500).send('Not yet implemented');
+
+router.get('/:mykey', (req, res) => {
+  const mykey = req.params.mykey;
+  const wanted_tstamp = _.get(req.query, 'timestamp');
+  let pipeline = [{ $match : { key : mykey } }];
+  if(wanted_tstamp) {
+    const wanted_tstamp_nmber = Number(wanted_tstamp);
+    if(isNaN(wanted_tstamp_nmber)){
+      return res.status(400).send({
+        "code": "400",
+        "errors": [],
+        "userMessage": "Please enter a valid timestamp.",
+        "internalMessage": "Timestamp in UTC and in milliseconds."
+      });
+    }
+    // With timestamp, check key vs the nearest timestamp query
+    pipeline.push({
+      $project : { key: 1, value: 1,
+        difference : {
+          $abs : {
+            $subtract : [, "$timestamp"]
+          }
+        }
+      }
+    });
+    pipeline.push({ $sort : {difference : 1} });
+  } else {
+    // No timestamp, only check key vs the latest entered value
+    pipeline.push({ $project : { key: 1, value: 1, timestamp: 1}});
+    pipeline.push({ $sort : {timestamp : -1} });
+  }
+  pipeline.push({ $limit : 1 });
+
+  ObjectModel.aggregate(pipeline).exec((err, result) => {
+    if(err) {
+      return res.status(500).send('Not yet implemented');
+    }
+    if(result.length > 0) {
+      return res.status(200).send({
+        [result[0].key]: result[0].value
+      });
+    } else {
+      return res.status(404).send('Can not find resource.');
+    }
+  });
 });
 
 module.exports = router
