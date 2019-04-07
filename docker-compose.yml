@@ -1,0 +1,29 @@
+version: "2"
+services:
+  keyvalueapi:
+    restart: always
+    build: .
+    environment: 
+      NODE_ENV: production-alpha
+      PORT: 3020
+      MONGODB_URI: mongodb://mydb:27017/KEYVALUEAPITest
+    ports:
+      - "3020:3020"
+    links:
+      - keyvalueapidb:mydb
+    depends_on:
+      - keyvalueapidb 
+    networks:
+      - keyvalueapinet
+  keyvalueapidb:
+    restart: always
+    image: mongo:3.4.10
+    volumes:
+      - ./keyvalueapidata:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - keyvalueapinet
+networks:
+  keyvalueapinet:
+    driver: bridge
