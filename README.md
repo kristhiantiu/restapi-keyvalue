@@ -45,7 +45,7 @@ Please do the following sequentially:
 
     2. Open Postman
 
-    3. Import apikeyvaluenv.postman_environment.json and edit `keyvalueapi_hostname` accordingly 
+    3. Import apikeyvaluenv.postman_environment.json and edit `keyvalueapi_hostname` and `keyvalueapi_protocol` accordingly 
 
     4. Import apikeyvaluetest.postman_collection.json
 
@@ -56,7 +56,6 @@ Please do the following sequentially:
     7. Click newly imported environment from step 3
 
     8. Click Run
-
 
 
 ### How do I install and run it for the first time in production? (w/ Docker and Docker Compose) ###
@@ -105,6 +104,26 @@ Please do the following:
         cd keyvalueapi
         docker-compose stop 
         ```
+
+### How do I test PRODUCTION instance using postman? ###
+Please do the following sequentially:
+
+    1. Make sure that your prod api is running (see previous steps).
+
+    2. Open Postman
+
+    3. Import apikeyvalue_prod_env.postman_environment and edit `keyvalueapi_hostname` and `keyvalueapi_protocol` accordingly. (Leave it when you use my prod server)
+
+    4. Import apikeyvaluetest.postman_collection.json
+
+    5. Click RUNNER
+
+    6. Select newly imported collection from step 4
+
+    7. Click newly imported environment from step 3
+
+    8. Click Run
+
 
 ### Contribution guidelines ###
 
