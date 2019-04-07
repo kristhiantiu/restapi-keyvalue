@@ -11,7 +11,7 @@ class ObjectError extends Error {
 var ObjectSchema = new mongoose.Schema({
   key: String,
   value: {
-      type: String,
+      type: mongoose.Schema.Types.Mixed,
       required: true
   },
   timestamp: {
