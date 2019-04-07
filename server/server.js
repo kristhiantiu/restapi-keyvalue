@@ -20,6 +20,9 @@ app.use('/api-docs',
   swaggerUi.setup(swaggerDocument)
 );
 
+var object = require('../object/object');
+app.use('/object', object);
+
 app.listen(port, () => {
     console.log(`Started on port ${port}`);    
 });
