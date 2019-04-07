@@ -8,7 +8,6 @@ this api uses a number of open source projects to work properly:
 
 * [MongoDBv3.x] - Move at the Speed of your Data - introduces innovations that make you more productive with less code and operations, whether it’s rapidly delivering cutting-edge applications to market, ensuring an exceptional experience on a global scale, or unlocking the intelligence you need for your next move.
 
-
 ### How do I install and run it for the first time in development? (w/out docker) ###
 Please do the following sequentially:
 
