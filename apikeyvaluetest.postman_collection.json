@@ -41,8 +41,8 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://{{keyvalueapi_hostname}}/api-docs",
-							"protocol": "http",
+							"raw": "{{keyvalueapi_protocol}}://{{keyvalueapi_hostname}}/api-docs",
+							"protocol": "{{keyvalueapi_protocol}}",
 							"host": [
 								"{{keyvalueapi_hostname}}"
 							],
@@ -97,8 +97,8 @@
 							"raw": "{\r\n}"
 						},
 						"url": {
-							"raw": "http://{{keyvalueapi_hostname}}/object",
-							"protocol": "http",
+							"raw": "{{keyvalueapi_protocol}}://{{keyvalueapi_hostname}}/object",
+							"protocol": "{{keyvalueapi_protocol}}",
 							"host": [
 								"{{keyvalueapi_hostname}}"
 							],
@@ -148,8 +148,8 @@
 							"raw": "{\r\n  \"SOMEOBJ1\": \"SUCCESS_IS_RESPECT\",\r\n  \"SOMEOBJ2\": \"SUCCESS_IS_RESPECT\"\r\n}"
 						},
 						"url": {
-							"raw": "http://{{keyvalueapi_hostname}}/object",
-							"protocol": "http",
+							"raw": "{{keyvalueapi_protocol}}://{{keyvalueapi_hostname}}/object",
+							"protocol": "{{keyvalueapi_protocol}}",
 							"host": [
 								"{{keyvalueapi_hostname}}"
 							],
@@ -199,8 +199,8 @@
 							"raw": "\"ASDASDASD\""
 						},
 						"url": {
-							"raw": "http://{{keyvalueapi_hostname}}/object",
-							"protocol": "http",
+							"raw": "{{keyvalueapi_protocol}}://{{keyvalueapi_hostname}}/object",
+							"protocol": "{{keyvalueapi_protocol}}",
 							"host": [
 								"{{keyvalueapi_hostname}}"
 							],
@@ -250,8 +250,8 @@
 							"raw": "{\r\n  121212: \"SUCCESS_IS_RESPECT\",\r\n  \"SOMEOBJ2\": \"SUCCESS_IS_RESPECT\"\r\n}"
 						},
 						"url": {
-							"raw": "http://{{keyvalueapi_hostname}}/object",
-							"protocol": "http",
+							"raw": "{{keyvalueapi_protocol}}://{{keyvalueapi_hostname}}/object",
+							"protocol": "{{keyvalueapi_protocol}}",
 							"host": [
 								"{{keyvalueapi_hostname}}"
 							],
@@ -301,8 +301,8 @@
 							"raw": "{\r\n  {\"someobj\": \"another object\"}: \"SUCCESS_IS_RESPECT\",\r\n  \"SOMEOBJ2\": \"SUCCESS_IS_RESPECT\"\r\n}"
 						},
 						"url": {
-							"raw": "http://{{keyvalueapi_hostname}}/object",
-							"protocol": "http",
+							"raw": "{{keyvalueapi_protocol}}://{{keyvalueapi_hostname}}/object",
+							"protocol": "{{keyvalueapi_protocol}}",
 							"host": [
 								"{{keyvalueapi_hostname}}"
 							],
@@ -367,8 +367,8 @@
 							"raw": "{\r\n  \"{{CREATEDOBJECTKEY}}\": \"SUCCESS_IS_RESPECT\"\r\n}"
 						},
 						"url": {
-							"raw": "http://{{keyvalueapi_hostname}}/object",
-							"protocol": "http",
+							"raw": "{{keyvalueapi_protocol}}://{{keyvalueapi_hostname}}/object",
+							"protocol": "{{keyvalueapi_protocol}}",
 							"host": [
 								"{{keyvalueapi_hostname}}"
 							],
@@ -432,8 +432,8 @@
 							"raw": "{\r\n  \"{{CREATEDOBJECTKEY}}\": \"{{CREATEDOBJECTLATERVALUE}}\"\r\n}"
 						},
 						"url": {
-							"raw": "http://{{keyvalueapi_hostname}}/object",
-							"protocol": "http",
+							"raw": "{{keyvalueapi_protocol}}://{{keyvalueapi_hostname}}/object",
+							"protocol": "{{keyvalueapi_protocol}}",
 							"host": [
 								"{{keyvalueapi_hostname}}"
 							],
@@ -497,8 +497,8 @@
 							"raw": "{\r\n  \"{{CREATEDOBJECTKEY}}\": {\"success\": \"is\", \"heaven\": \"yeah!\"}\r\n}"
 						},
 						"url": {
-							"raw": "http://{{keyvalueapi_hostname}}/object",
-							"protocol": "http",
+							"raw": "{{keyvalueapi_protocol}}://{{keyvalueapi_hostname}}/object",
+							"protocol": "{{keyvalueapi_protocol}}",
 							"host": [
 								"{{keyvalueapi_hostname}}"
 							],
@@ -547,8 +547,8 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://{{keyvalueapi_hostname}}/object/:mykey",
-							"protocol": "http",
+							"raw": "{{keyvalueapi_protocol}}://{{keyvalueapi_hostname}}/object/:mykey",
+							"protocol": "{{keyvalueapi_protocol}}",
 							"host": [
 								"{{keyvalueapi_hostname}}"
 							],
@@ -593,8 +593,8 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://{{keyvalueapi_hostname}}/object/:mykey?timestamp=\"ASDASDASD\"",
-							"protocol": "http",
+							"raw": "{{keyvalueapi_protocol}}://{{keyvalueapi_hostname}}/object/:mykey?timestamp=\"ASDASDASD\"",
+							"protocol": "{{keyvalueapi_protocol}}",
 							"host": [
 								"{{keyvalueapi_hostname}}"
 							],
@@ -651,8 +651,8 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://{{keyvalueapi_hostname}}/object/:mykey?timestamp={{CREATEDOBJECTTIMESTAMP}}",
-							"protocol": "http",
+							"raw": "{{keyvalueapi_protocol}}://{{keyvalueapi_hostname}}/object/:mykey?timestamp={{CREATEDOBJECTTIMESTAMP}}",
+							"protocol": "{{keyvalueapi_protocol}}",
 							"host": [
 								"{{keyvalueapi_hostname}}"
 							],
@@ -709,8 +709,8 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://{{keyvalueapi_hostname}}/object/:mykey?timestamp={{TESTSTARTTIME}}",
-							"protocol": "http",
+							"raw": "{{keyvalueapi_protocol}}://{{keyvalueapi_hostname}}/object/:mykey?timestamp={{TESTSTARTTIME}}",
+							"protocol": "{{keyvalueapi_protocol}}",
 							"host": [
 								"{{keyvalueapi_hostname}}"
 							],
@@ -767,8 +767,8 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://{{keyvalueapi_hostname}}/object/:mykey?timestamp={{JUSTAFTER1STCREATETIMESTAMP}}",
-							"protocol": "http",
+							"raw": "{{keyvalueapi_protocol}}://{{keyvalueapi_hostname}}/object/:mykey?timestamp={{JUSTAFTER1STCREATETIMESTAMP}}",
+							"protocol": "{{keyvalueapi_protocol}}",
 							"host": [
 								"{{keyvalueapi_hostname}}"
 							],
@@ -825,8 +825,8 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://{{keyvalueapi_hostname}}/object/:mykey?timestamp={{CREATEDOBJECTTIMESTAMPLATER}}",
-							"protocol": "http",
+							"raw": "{{keyvalueapi_protocol}}://{{keyvalueapi_hostname}}/object/:mykey?timestamp={{CREATEDOBJECTTIMESTAMPLATER}}",
+							"protocol": "{{keyvalueapi_protocol}}",
 							"host": [
 								"{{keyvalueapi_hostname}}"
 							],
@@ -893,8 +893,8 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://{{keyvalueapi_hostname}}/object/:mykey?timestamp={{TESTLATERTIME}}",
-							"protocol": "http",
+							"raw": "{{keyvalueapi_protocol}}://{{keyvalueapi_hostname}}/object/:mykey?timestamp={{TESTLATERTIME}}",
+							"protocol": "{{keyvalueapi_protocol}}",
 							"host": [
 								"{{keyvalueapi_hostname}}"
 							],
@@ -961,8 +961,8 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://{{keyvalueapi_hostname}}/object/:mykey?timestamp={{TESTLATESTTIME}}",
-							"protocol": "http",
+							"raw": "{{keyvalueapi_protocol}}://{{keyvalueapi_hostname}}/object/:mykey?timestamp={{TESTLATESTTIME}}",
+							"protocol": "{{keyvalueapi_protocol}}",
 							"host": [
 								"{{keyvalueapi_hostname}}"
 							],
