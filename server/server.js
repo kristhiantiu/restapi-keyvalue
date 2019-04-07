@@ -15,6 +15,14 @@ app.use((req, res, next) => {
     next();
 });
 
+const rateLimit = require("express-rate-limit");
+app.enable("trust proxy");
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100 // limit each IP to 100 requests per windowMs
+});
+app.use(limiter);
+
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('../swagger.json');
 app.use('/api-docs', 
