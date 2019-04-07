@@ -1,0 +1,22 @@
+require('./config/config');
+const port = process.env.PORT;
+var cors = require('cors');
+const express = require('express');
+var app = express();
+
+app.use(cors())
+
+app.use((req, res, next) => {
+    var now = new Date().toString();
+    var log = `${now}: ${req.method} ${req.url}`;
+    console.log(log);
+    next();
+});
+
+app.listen(port, () => {
+    console.log(`Started on port ${port}`);    
+});
+
+module.exports = {
+    app
+}
