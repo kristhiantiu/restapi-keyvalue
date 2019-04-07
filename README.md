@@ -25,6 +25,39 @@ Please do the following sequentially:
             npm start
             ```
 
+### How do I test my instance using a terminal? ###
+Please do the following sequentially:
+
+    1. Make sure that your api is running (see previous steps).
+
+    3. Open apikeyvaluenv.postman_environment.json and edit `keyvalueapi_hostname` accordingly 
+
+    4. Run test
+        * terminal
+            ```bash
+            npm test
+            ```
+
+### How do I test my instance using postman? ###
+Please do the following sequentially:
+
+    1. Make sure that your api is running (see previous steps).
+
+    2. Open Postman
+
+    3. Import apikeyvaluenv.postman_environment.json and edit `keyvalueapi_hostname` accordingly 
+
+    4. Import apikeyvaluetest.postman_collection.json
+
+    5. Click RUNNER
+
+    6. Select newly imported collection from step 4
+
+    7. Click newly imported environment from step 3
+
+    8. Click Run
+
+
 ### Contribution guidelines ###
 
 * No direct push to major branches (master, develop) - all merge to master must pass through a pull request
