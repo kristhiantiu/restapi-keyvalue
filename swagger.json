@@ -1,0 +1,149 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Key Value API",
+    "version": "1.0"
+  },
+  "paths": {
+    "/object": {
+      "post": {
+        "summary": "Create an object",
+        "description": "Adds a new key value pair as an object.",
+        "parameters": [
+          {
+            "name": "object",
+            "in": "body",
+            "description": "The object to create.",
+            "schema": {
+              "$ref": "#/definitions/Object"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Object successfully created.",
+            "schema": {
+              "$ref": "#/definitions/Object"
+            }
+          },
+          "400": {
+            "$ref": "#/responses/Standard400ErrorResponse"
+          },
+          "500": {
+            "$ref": "#/responses/Standard500ErrorResponse"
+          }
+        }
+      }
+    },
+    "/object/{mykey}": {
+      "parameters": [
+        {
+          "name": "mykey",
+          "in": "path",
+          "required": true,
+          "description": "The object's key",
+          "type": "string"
+        },
+        {
+          "name": "timestamp",
+          "in": "query",
+          "description": "unix timestamp according UTC timezone in milliseconds",
+          "type": "integer"
+        }
+      ],
+      "get": {
+        "summary": "Get specific Object",
+        "description": "Returns object with key and value by passing the key",
+        "responses": {
+          "200": {
+            "description": "Object",
+            "schema": {
+              "$ref": "#/definitions/Object"
+            }
+          },
+          "404": {
+            "$ref": "#/responses/Standard404ErrorResponse"
+          },
+          "500": {
+            "$ref": "#/responses/Standard500ErrorResponse"
+          }
+        }
+      }
+    }
+  },
+  "parameters": {
+    "jwtAuthorization": {
+      "name": "Authorization",
+      "description": "JWT token",
+      "type": "string",
+      "in": "header",
+      "required": true
+    }
+  },
+  "definitions": {
+    "Object": {
+      "required": [
+        "key",
+        "value"
+      ],
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "number",
+          "readOnly": true
+        }
+      }
+    },
+    "Error": {
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "properties": {
+              "field": {
+                "type": "string"
+              },
+              "error": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "userMessage": {
+          "type": "string"
+        },
+        "internalMessage": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "responses": {
+    "Standard500ErrorResponse": {
+      "description": "An unexpected error occured."
+    },
+    "Standard400ErrorResponse": {
+      "description": "Incorrect parameters submitted.",
+      "schema": {
+        "$ref": "#/definitions/Error"
+      }
+    },
+    "Standard401ErrorResponse": {
+      "description": "Unauthorized"
+    },
+    "Standard404ErrorResponse": {
+      "description": "Resource does not exists."
+    },
+    "Standard409ErrorResponse": {
+      "description": "Your app is making too many requests and is being rate limited. 429s can trigger on a per-app or per-user basis."
+    }
+  }
+}

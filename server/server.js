@@ -13,6 +13,13 @@ app.use((req, res, next) => {
     next();
 });
 
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('../swagger.json');
+app.use('/api-docs', 
+  swaggerUi.serve, 
+  swaggerUi.setup(swaggerDocument)
+);
+
 app.listen(port, () => {
     console.log(`Started on port ${port}`);    
 });
