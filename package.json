@@ -17,6 +17,7 @@
     "ms": "^2.1.1",
     "request": "^2.88.0",
     "swagger-ui-express": "^2.0.13",
+    "uglify-js": "^2.6.0",
     "validator": "^9.2.0"
   },
   "devDependencies": {
