@@ -6,8 +6,6 @@ this api uses a number of open source projects to work properly:
 
 * [Nodejsv8.9] - a JavaScript runtime built on Chrome's V8 JavaScript engine. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient. Node.js' package ecosystem, npm, is the largest ecosystem of open source libraries in the world.
 
-* [Expressjs] - a minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications.
-
 * [MongoDBv3.x] - Move at the Speed of your Data - introduces innovations that make you more productive with less code and operations, whether it’s rapidly delivering cutting-edge applications to market, ensuring an exceptional experience on a global scale, or unlocking the intelligence you need for your next move.
 
 
