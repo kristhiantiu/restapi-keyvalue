@@ -567,6 +567,58 @@
 					"response": []
 				},
 				{
+					"name": "PREVENT READ OBJECT using INVALID TIME",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e0c615ac-4c37-4ba8-8646-26422bd754da",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () { pm.response.to.have.status(400); });",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{keyvalueapi_hostname}}/object/:mykey?timestamp=\"ASDASDASD\"",
+							"protocol": "http",
+							"host": [
+								"{{keyvalueapi_hostname}}"
+							],
+							"path": [
+								"object",
+								":mykey"
+							],
+							"query": [
+								{
+									"key": "timestamp",
+									"value": "\"ASDASDASD\""
+								}
+							],
+							"variable": [
+								{
+									"key": "mykey",
+									"value": "{{CREATEDOBJECTKEY}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "READ EARLIER OBJECT using EXACT TIME",
 					"event": [
 						{
