@@ -15,7 +15,7 @@
             "in": "body",
             "description": "The object to create.",
             "schema": {
-              "$ref": "#/definitions/Object"
+              "$ref": "#/definitions/KeyValueMap"
             }
           }
         ],
@@ -47,7 +47,7 @@
         {
           "name": "timestamp",
           "in": "query",
-          "description": "unix timestamp according UTC timezone in milliseconds",
+          "description": "unix timestamp according UTC timezone in milliseconds ex.:1440568980",
           "type": "integer"
         }
       ],
@@ -56,9 +56,15 @@
         "description": "Returns object with key and value by passing the key",
         "responses": {
           "200": {
-            "description": "Object",
+            "description": "Object Updated value",
             "schema": {
-              "$ref": "#/definitions/Object"
+              "$ref": "#/definitions/KeyValueMap"
+            }
+          },
+          "201": {
+            "description": "New Object Created",
+            "schema": {
+              "$ref": "#/definitions/KeyValueMap"
             }
           },
           "404": {
@@ -81,6 +87,15 @@
     }
   },
   "definitions": {
+    "KeyValueMap": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "example": {
+        "<key>": "<value>"
+      }
+    },
     "Object": {
       "required": [
         "key",
