@@ -1,9 +1,11 @@
 require('./config/config');
-const port = process.env.PORT;
-var cors = require('cors');
+
+var {mongoose} = require('./db/mongoose');
+
 const express = require('express');
 var app = express();
 
+var cors = require('cors');
 app.use(cors())
 
 app.use((req, res, next) => {
@@ -23,6 +25,7 @@ app.use('/api-docs',
 var object = require('../object/object');
 app.use('/object', object);
 
+const port = process.env.PORT;
 app.listen(port, () => {
     console.log(`Started on port ${port}`);    
 });

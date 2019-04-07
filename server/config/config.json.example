@@ -1,8 +1,10 @@
 {
     "test": {
-        "PORT": 3020
+        "PORT": 3020,
+        "MONGODB_URI": "mongodb://localhost:27017/KEYVALUEAPITest"
     },
     "development": {
-        "PORT": 3020
+        "PORT": 3020,
+        "MONGODB_URI": "mongodb://localhost:27017/KEYVALUEAPITest"
     }
 }
