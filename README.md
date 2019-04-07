@@ -73,7 +73,7 @@ Please do the following sequentially:
         ```
 
     3. build [Create Custom Image] api, and mongoddb:
-        * biobankapi2
+        * Building images
             ```bash
             cd keyvalueapi
             docker-compose build
