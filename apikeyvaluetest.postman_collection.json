@@ -331,7 +331,7 @@
 									"});",
 									"",
 									"pm.globals.set(\"CREATEDOBJECTTIMESTAMP\", response.timestamp);",
-									"pm.globals.set(\"JUSTAFTER1STCREATETIMESTAMP\",  new Date().getTime());"
+									"pm.globals.set(\"JUSTAFTER1STCREATETIMESTAMP\",  new Date(response.timestamp + 1).getTime());"
 								],
 								"type": "text/javascript"
 							}
@@ -396,7 +396,7 @@
 									"    pm.expect(response).to.have.property('timestamp');",
 									"});",
 									"pm.globals.set(\"CREATEDOBJECTTIMESTAMPLATER\", response.timestamp);",
-									"pm.globals.set(\"TESTLATERTIME\", new Date().getTime());"
+									"pm.globals.set(\"TESTLATERTIME\", new Date(response.timestamp + 1).getTime());"
 								],
 								"type": "text/javascript"
 							}
@@ -461,7 +461,7 @@
 									"    pm.expect(response).to.have.property('timestamp');",
 									"});",
 									"pm.globals.set(\"CREATEDOBJECTTIMESTAMPLATEST\", response.timestamp);",
-									"pm.globals.set(\"TESTLATESTTIME\", new Date().getTime());"
+									"pm.globals.set(\"TESTLATESTTIME\", new Date(response + 1).getTime());"
 								],
 								"type": "text/javascript"
 							}
