@@ -59,6 +59,57 @@
 			"name": "CREATING OBJECTS",
 			"item": [
 				{
+					"name": "PREVENT CREATE OBJECT EMPTY",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "da78678e-c8c7-4056-8515-477ab6f96722",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () { pm.response.to.have.status(400); });"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "80701c3e-81d2-4734-9f60-f998929093b7",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n}"
+						},
+						"url": {
+							"raw": "http://{{keyvalueapi_hostname}}/object",
+							"protocol": "http",
+							"host": [
+								"{{keyvalueapi_hostname}}"
+							],
+							"path": [
+								"object"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "PREVENT CREATE OBJECT MULTIPLE",
 					"event": [
 						{
@@ -95,6 +146,159 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n  \"SOMEOBJ1\": \"SUCCESS_IS_RESPECT\",\r\n  \"SOMEOBJ2\": \"SUCCESS_IS_RESPECT\"\r\n}"
+						},
+						"url": {
+							"raw": "http://{{keyvalueapi_hostname}}/object",
+							"protocol": "http",
+							"host": [
+								"{{keyvalueapi_hostname}}"
+							],
+							"path": [
+								"object"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PREVENT CREATE OBJECT WRONG FORMAT",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "da78678e-c8c7-4056-8515-477ab6f96722",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () { pm.response.to.have.status(400); });"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "80701c3e-81d2-4734-9f60-f998929093b7",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "text/plain",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\"ASDASDASD\""
+						},
+						"url": {
+							"raw": "http://{{keyvalueapi_hostname}}/object",
+							"protocol": "http",
+							"host": [
+								"{{keyvalueapi_hostname}}"
+							],
+							"path": [
+								"object"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PREVENT CREATE OBJECT NUMBER KEY",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "da78678e-c8c7-4056-8515-477ab6f96722",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () { pm.response.to.have.status(400); });"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "80701c3e-81d2-4734-9f60-f998929093b7",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "text/plain",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  121212: \"SUCCESS_IS_RESPECT\",\r\n  \"SOMEOBJ2\": \"SUCCESS_IS_RESPECT\"\r\n}"
+						},
+						"url": {
+							"raw": "http://{{keyvalueapi_hostname}}/object",
+							"protocol": "http",
+							"host": [
+								"{{keyvalueapi_hostname}}"
+							],
+							"path": [
+								"object"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PREVENT CREATE OBJECT WITH OBJECT KEY",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "da78678e-c8c7-4056-8515-477ab6f96722",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () { pm.response.to.have.status(400); });"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "80701c3e-81d2-4734-9f60-f998929093b7",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "text/plain"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  {\"someobj\": \"another object\"}: \"SUCCESS_IS_RESPECT\",\r\n  \"SOMEOBJ2\": \"SUCCESS_IS_RESPECT\"\r\n}"
 						},
 						"url": {
 							"raw": "http://{{keyvalueapi_hostname}}/object",
@@ -267,7 +471,7 @@
 							"script": {
 								"id": "a8e6317e-d100-48e9-9533-a59083a92c68",
 								"exec": [
-									"pm.globals.set(\"CREATEDOBJECTLATESTVALUE\", \"SUCCESS_IS_HEAVEN\");"
+									"pm.globals.set(\"CREATEDOBJECTLATESTVALUE\", {\"success\": \"is\", \"heaven\": \"yeah!\"});"
 								],
 								"type": "text/javascript"
 							}
@@ -290,7 +494,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"{{CREATEDOBJECTKEY}}\": \"{{CREATEDOBJECTLATESTVALUE}}\"\r\n}"
+							"raw": "{\r\n  \"{{CREATEDOBJECTKEY}}\": {\"success\": \"is\", \"heaven\": \"yeah!\"}\r\n}"
 						},
 						"url": {
 							"raw": "http://{{keyvalueapi_hostname}}/object",
