@@ -445,7 +445,7 @@
 					"response": []
 				},
 				{
-					"name": "UPDATE OBJECT LATEST",
+					"name": "UPDATE OBJECT LATEST with JSON VALUE",
 					"event": [
 						{
 							"listen": "test",
