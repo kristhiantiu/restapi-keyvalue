@@ -55,10 +55,21 @@
 							"script": {
 								"id": "da78678e-c8c7-4056-8515-477ab6f96722",
 								"exec": [
+									"pm.test(\"Status code is 201\", function () { pm.response.to.have.status(201); });",
 									"const response = pm.response.json();",
-									"pm.globals.set(\"CREATEDOBJECTKEY\", response.key);",
-									"pm.globals.set(\"CREATEDOBJECTTIMESTAMP\", response.timestamp);",
-									"pm.test(\"Status code is 201\", function () { pm.response.to.have.status(201); });"
+									"pm.globals.set(\"CREATEDOBJECTTIMESTAMP\", response.timestamp);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "80701c3e-81d2-4734-9f60-f998929093b7",
+								"exec": [
+									"const testrandomnumber = Math.floor((Math.random() * 10000) + 1);",
+									"pm.globals.set(\"CREATEDOBJECTKEY\", \"SECRET\" + testrandomnumber);",
+									"console.log(testrandomnumber);"
 								],
 								"type": "text/javascript"
 							}
@@ -72,16 +83,11 @@
 								"name": "Content-Type",
 								"type": "text",
 								"value": "application/json"
-							},
-							{
-								"key": "Authorization",
-								"type": "text",
-								"value": "JWT {{organization_login}}"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"{{SECRET}}\": \"SUCCESS_IS_RESPECT\"\r\n}"
+							"raw": "{\r\n  \"{{CREATEDOBJECTKEY}}\": \"SUCCESS_IS_RESPECT\"\r\n}"
 						},
 						"url": {
 							"raw": "http://{{keyvalueapi_hostname}}/object",
@@ -143,7 +149,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"{{SECRET}}\": \"{{CREATEDOBJECTLATERVALUE}}\"\r\n}"
+							"raw": "{\r\n  \"{{CREATEDOBJECTKEY}}\": \"{{CREATEDOBJECTLATERVALUE}}\"\r\n}"
 						},
 						"url": {
 							"raw": "http://{{keyvalueapi_hostname}}/object",
