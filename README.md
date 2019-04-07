@@ -8,6 +8,9 @@ this api uses a number of open source projects to work properly:
 
 * [Expressjs] - a minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications.
 
+* [MongoDBv3.x] - Move at the Speed of your Data - introduces innovations that make you more productive with less code and operations, whether it’s rapidly delivering cutting-edge applications to market, ensuring an exceptional experience on a global scale, or unlocking the intelligence you need for your next move.
+
+
 ### How do I install and run it for the first time in development? (w/out docker) ###
 Please do the following sequentially:
 
@@ -139,3 +142,4 @@ Please do the following sequentially:
 
    [Nodejsv8.9]: https://nodejs.org/ja/blog/release/v8.9.0/
    [Expressjs]: <https://expressjs.com/>
+   [MongoDBv3.x]: https://www.mongodb.com/mongodb-3.6/
